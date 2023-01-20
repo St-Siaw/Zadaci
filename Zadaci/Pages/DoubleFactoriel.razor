@@ -1,0 +1,43 @@
+﻿@page "/DoubleFactoriel"
+
+<h3>Factoriel</h3>
+
+ <tr>
+        <td>Enter n:</td>
+        <td><input style="text-align:right" @bind="n" /></td>
+    </tr>
+    <tr>
+        <td style="text-align:center" colspan="2">
+            <button @onclick="Result">Determine double factoriel</button> &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td>Result:</td>
+        <td><input style="text-align:right" @bind="result" /></td>
+    </tr>
+
+
+@code {
+    private int n = 0;
+    private long result = 0;
+
+
+    private void Result()
+    {
+        long res = n;
+
+        if (n <= 0)
+        {
+            res = 1;
+        }
+
+        res = n;
+
+        for (int i = n - 2; i > 0; i -= 2)
+        {
+            res *= i;
+        }
+
+        result = res;
+    }
+}

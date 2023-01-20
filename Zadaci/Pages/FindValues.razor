@@ -1,0 +1,106 @@
+﻿@page "/FindValues"
+
+
+<PageTitle>Find values</PageTitle>
+<h1>Arrays - iteration</h1>
+<br />
+    <button @onclick="Execute">Do It!</button>
+<br />
+    Output:
+<br />
+<div style="border:solid; border-color:black">
+    <pre>@message</pre>
+</div>
+
+
+@code {
+    private int min;
+    private int max;
+    private int sum;
+    double avg;
+    private int closest1;
+    private int closest2;
+    private string message = String.Empty;
+
+
+    //ovo ovde je test niz za cetvrti zadatak
+    int[,] testArr = { { 1, 2, 3, 4, 5, 6, 7, 8 },
+                           { 9, 10, 11, 12, 13, 14, 15, 16 },
+                           { 17, 18, 19, 20, 21, 22, 23, 24 },
+                           { 25, 26, 27, 28, 29, 30, 31, 32 },
+                           { 33, 34, 35, 36, 37, 38, 39, 40 },
+                           { 41, 42, 43, 44, 45, 46, 47, 48 },
+                           { 49, 50, 51, 52, 53, 54, 55, 56 },
+                           { 57, 58, 59, 60, 61, 62, 63, 64 } };
+    private void Execute()
+    {
+        FindValuesFunc(testArr);
+    }
+
+    void FindValuesFunc(int[,] arr)
+    {
+        int min = int.MaxValue;
+        int max = int.MinValue;
+        int sum = 0;
+        int count = 0;
+        double avg;
+        int closest1 = 0;
+        int closest2 = 0;
+        double closestDiff = double.MaxValue;
+
+
+
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                int current = arr[i, j];
+                if (current < min)
+                {
+                    min = current;
+                }
+                if (current > max)
+                {
+                    max = current;
+                }
+                sum += current;
+                count++;
+            }
+        }
+        avg = (double)sum / count;
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                int current = arr[i, j];
+                double diff = Math.Abs(current - avg);
+                if (diff < closestDiff)
+                {
+                    closestDiff = diff;
+                    closest1 = current;
+                    closest2 = current;
+                }
+                else if (diff == closestDiff)
+                {
+                    closest2 = current;
+                }
+            }
+        }
+        this.min = min;
+        this.max = max;
+        this.avg = avg;
+        this.closest1 = closest1;
+        this.closest2 = closest2;
+
+        message = string.Empty;
+
+        message = "Minimum value: " + min + "\n";
+        message += "Maximum value: " + max + "\n";
+        message += "Average value: " + avg + "\n";
+        message += "Numbers closest to average: " + closest1 + ", " + closest2;
+        Console.WriteLine("Minimum value: " + min);
+        Console.WriteLine("Maximum value: " + max);
+        Console.WriteLine("Average value: " + avg);
+        Console.WriteLine("Numbers closest to average: " + closest1 + ", " + closest2);
+    }
+}
